@@ -17,7 +17,6 @@ function animate(e, animation, callback) {
 
     if (e.target.tagName.toLowerCase() === 'button'){el = e.target.parentElement.parentElement } else {el = e.target.parentElement.parentElement.parentElement };
 
-
     // let el = e.target.parentElement.parentElement.parentElement;
     let prevEl = el.previousElementSibling;
     let nextEl = el.nextElementSibling;
@@ -72,9 +71,13 @@ function animate(e, animation, callback) {
     }, 200);
 }
 
+
+
+
 export function FormRowControls(props) {
-    return (
-        <div className="rjf-form-row-controls col-sm-auto">
+
+    if(props.onMoveDown == null && props.onMoveUp == null && props.onRemove == null){return null;}else {return (
+        <div className="rjf-form-row-controls col-sm-12 col-md-2">
             {props.onMoveUp &&
                 <Button
                     className="move-up"
@@ -103,14 +106,27 @@ export function FormRowControls(props) {
                 </Button>
             }
         </div>
-    );
+    );}
+
+
+    
 }
 
+
+
+
+
 export function FormRow(props) {
+
+    let rowClass = props.children.props.level % 2 == 0 ? "rjf-form-row col align-items-center my-2" : "rjf-form-row row align-items-center my-2"
+
+    if(props.children.props.level % 2 == 0 && props.children.props.parentType === "array"){rowClass='rjf-form-row row align-items-center my-2'}
+
+
     return (
-        <div className="rjf-form-row col m-1">
+        <div className={rowClass}>
             <FormRowControls {...props} />
-            <div className="rjf-form-row-inner row">
+            <div className="rjf-form-row-inner col">
                 {props.children}
             </div>
         </div>
@@ -119,21 +135,32 @@ export function FormRow(props) {
 
 
 export function FormGroup(props) {
+    
+      
+    
     let hasChildren = React.Children.count(props.children);
 
     let innerClassName = props.level === 0 && !hasChildren
         ? ""
-        : "rjf-form-group-inner row row-cols-auto";
+        : "rjf-form-group-inner row  align-items-center";
+
+
+    let rowClass = props.level == 0 ? "rjf-form-group row m-1 py-2" : "rjf-form-group col m-1 py-2"
+
+
+    if (props.schema.type === 'object' && props.level == 1){rowClass = 'rjf-form-group row m-1 py-2'}
+
+
 
     return (
-        <div className="rjf-form-group row">
+        <div className={rowClass}>
             {props.level === 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
             <div className={innerClassName}>
                 {props.level > 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
                 {props.children}
-                {props.addable}
+                {props.addable && 
 
-                <div className='btn-group group-add'>
+                <div className='btn-group group-add col m-1 text-center'>
                     <Button
                         className="add"
                         onClick={(e) => props.onAdd()}
@@ -141,7 +168,7 @@ export function FormGroup(props) {
                     >
                         {hasChildren ? 'Add more' : 'Add'}
                     </Button>
-                </div>
+                </div> }
             </div>
         </div>
     );

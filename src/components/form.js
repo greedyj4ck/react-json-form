@@ -18,7 +18,7 @@ export function FormInput({label, help_text, error, inputRef, ...props}) {
     props.className = 'form-control';
 
     return (
-        <div className="d-flex align-items-center">
+        <div className="d-inline-flex align-items-center">
             {label && <label className="form-label">{label}</label>}
             <div className="rjf-input-group">
                 <input {...props} />
@@ -451,14 +451,15 @@ export class FormFileInput extends React.Component {
 
         return (
             <div> 
-                {label && <label>{label}</label>}
-                <div className="rjf-file-field">
+                {label && <label className="form-label my-2">{label}</label>}
+                <div className="rjf-file-field form-group">
                     {this.state.value && 
                         <div className="rjf-current-file-name">
-                            Current file: <span>{this.state.fileName}</span> {' '}
+                            Current file: <span className="">{this.state.fileName}</span> {' '}
                             <Button className="remove-file" onClick={this.clearFile}>Clear</Button>
                         </div>
                     }
+                    <div className="align-items-center">
                     {this.state.value && !this.state.loading && 'Change:'}
                     {this.state.loading ?
                         <div className="rjf-file-field-loading"><Loader/> Uploading...</div>
@@ -466,7 +467,7 @@ export class FormFileInput extends React.Component {
                     <div className="rjf-file-field-input">
                         <FormInput {...props} inputRef={this.inputRef} />
                     </div>
-                    }
+                    }</div>
                     </div>
             </div>
         );

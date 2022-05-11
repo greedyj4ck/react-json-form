@@ -233,7 +233,7 @@ export function getArrayFormRow(args) {
     }
 
     if (groups.length) {
-        let groupTitle = schema.title ? <div className="rjf-form-group-title">{schema.title}</div> : null;
+        let groupTitle = schema.title ? <div className="rjf-form-group-title row"><h5 className='display'>{schema.title}</h5></div> : null;
 
         groups = (
             <div key={'group_' + name}>
@@ -323,7 +323,7 @@ export function getObjectFormRow(args) {
     }
 
     if (rows.length || schema.additionalProperties) {
-        let className = "rjf-form-group-inner";
+        let className = "rjf-form-group-inner row row-cols-auto align-items-center";
         if (level === 0 && !rows.length)
             className = "";
         
