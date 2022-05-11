@@ -1,6 +1,6 @@
 # react-json-form
 
-React Component for editing JSON data using form inputs.
+Fork of React Component for editing JSON data using form inputs. Wraped in Bootstrap elements. 
 
 # Developing
 

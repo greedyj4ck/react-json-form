@@ -6,52 +6,58 @@ export function GroupTitle(props) {
         return null;
 
     return (
-        <div className="rjf-form-group-title">{props.children}</div>
+        <div className="rjf-form-group-title row"><div className="col">{props.children}</div></div>
     );
 }
 
 
 function animate(e, animation, callback) {
-    let el = e.target.parentElement.parentElement;
+
+    let el;
+
+    if (e.target.tagName.toLowerCase() === 'button'){el = e.target.parentElement.parentElement } else {el = e.target.parentElement.parentElement.parentElement };
+
+
+    // let el = e.target.parentElement.parentElement.parentElement;
     let prevEl = el.previousElementSibling;
     let nextEl = el.nextElementSibling;
 
     el.classList.add('rjf-animate', 'rjf-' + animation);
 
     if (animation === 'move-up') {
-        let {y, height} = prevEl.getBoundingClientRect();
+        let { y, height } = prevEl.getBoundingClientRect();
         let y1 = y, h1 = height;
-        
-        ({y, height} = el.getBoundingClientRect());
+
+        ({ y, height } = el.getBoundingClientRect());
         let y2 = y, h2 = height;
-        
+
         prevEl.classList.add('rjf-animate');
 
         prevEl.style.opacity = 0;
-        prevEl.style.transform = 'translateY(' + (y2 - y1)  + 'px)';
+        prevEl.style.transform = 'translateY(' + (y2 - y1) + 'px)';
 
         el.style.opacity = 0;
-        el.style.transform = 'translateY(-' + (y2 - y1)  + 'px)';
+        el.style.transform = 'translateY(-' + (y2 - y1) + 'px)';
 
     } else if (animation === 'move-down') {
-        let {y, height} = el.getBoundingClientRect();
+        let { y, height } = el.getBoundingClientRect();
         let y1 = y, h1 = height;
-        
-        ({y, height} = nextEl.getBoundingClientRect());
+
+        ({ y, height } = nextEl.getBoundingClientRect());
         let y2 = y, h2 = height;
-        
+
         nextEl.classList.add('rjf-animate');
 
         nextEl.style.opacity = 0;
-        nextEl.style.transform = 'translateY(-' + (y2 - y1)  + 'px)';
+        nextEl.style.transform = 'translateY(-' + (y2 - y1) + 'px)';
 
         el.style.opacity = 0;
-        el.style.transform = 'translateY(' + (y2 - y1)  + 'px)';
+        el.style.transform = 'translateY(' + (y2 - y1) + 'px)';
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
         callback();
-        
+
         el.classList.remove('rjf-animate', 'rjf-' + animation);
         el.style = null;
 
@@ -68,9 +74,9 @@ function animate(e, animation, callback) {
 
 export function FormRowControls(props) {
     return (
-        <div className="rjf-form-row-controls">
+        <div className="rjf-form-row-controls col-sm-auto">
             {props.onMoveUp &&
-                <Button 
+                <Button
                     className="move-up"
                     onClick={(e) => animate(e, 'move-up', props.onMoveUp)}
                     title="Move up"
@@ -79,7 +85,7 @@ export function FormRowControls(props) {
                 </Button>
             }
             {props.onMoveDown &&
-                <Button 
+                <Button
                     className="move-down"
                     onClick={(e) => animate(e, 'move-down', props.onMoveDown)}
                     title="Move down"
@@ -88,7 +94,7 @@ export function FormRowControls(props) {
                 </Button>
             }
             {props.onRemove &&
-                <Button 
+                <Button
                     className="remove"
                     onClick={(e) => animate(e, 'remove', props.onRemove)}
                     title="Remove"
@@ -102,9 +108,9 @@ export function FormRowControls(props) {
 
 export function FormRow(props) {
     return (
-        <div className="rjf-form-row">
+        <div className="rjf-form-row col m-1">
             <FormRowControls {...props} />
-            <div className="rjf-form-row-inner">
+            <div className="rjf-form-row-inner row">
                 {props.children}
             </div>
         </div>
@@ -116,24 +122,26 @@ export function FormGroup(props) {
     let hasChildren = React.Children.count(props.children);
 
     let innerClassName = props.level === 0 && !hasChildren
-        ? "" 
-        : "rjf-form-group-inner";
+        ? ""
+        : "rjf-form-group-inner row row-cols-auto";
 
     return (
-        <div className="rjf-form-group">
+        <div className="rjf-form-group row">
             {props.level === 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
             <div className={innerClassName}>
                 {props.level > 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
                 {props.children}
-                {props.addable && 
-                <Button
-                    className="add"
-                    onClick={(e) => props.onAdd()}
-                    title="Add new"
-                >
-                    {hasChildren ? 'Add more' : 'Add'}
-                </Button>
-                }
+                {props.addable}
+
+                <div className='btn-group group-add'>
+                    <Button
+                        className="add"
+                        onClick={(e) => props.onAdd()}
+                        title="Add new"
+                    >
+                        {hasChildren ? 'Add more' : 'Add'}
+                    </Button>
+                </div>
             </div>
         </div>
     );

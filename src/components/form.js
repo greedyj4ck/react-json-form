@@ -15,9 +15,11 @@ export function FormInput({label, help_text, error, inputRef, ...props}) {
     if (props.value === null)
         props.value = '';
 
+    props.className = 'form-control';
+
     return (
-        <div>
-            {label && <label>{label}</label>}
+        <div className="d-flex align-items-center">
+            {label && <label className="form-label">{label}</label>}
             <div className="rjf-input-group">
                 <input {...props} />
                 {help_text && <span class="rjf-help-text">{help_text}</span>}
@@ -510,7 +512,7 @@ export class FormTextareaInput extends React.Component {
 
         return (
             <div>
-                {label && <label>{label}</label>}
+                {label && <label class="form-label">{label}</label>}
                 <div className="rjf-input-group">
                     <textarea {...props} />
                     {help_text && <span class="rjf-help-text">{help_text}</span>}
@@ -672,7 +674,7 @@ export class FormDateTimeInput extends React.Component {
     render() {
         return (
             <div className="rjf-datetime-field">
-                {this.props.label && <label>{this.props.label}</label>}
+                {this.props.label && <label class="form-label">{this.props.label}</label>}
                 <div className="rjf-datetime-field-inner">
                     <div className="rjf-datetime-field-inputs">
                         <div className="rjf-datetime-field-date">

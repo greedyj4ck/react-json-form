@@ -3,221 +3,73 @@
 <head>
     <meta charset="utf-8">
     <title>JSON Editor</title>
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            font-size: 16px;
-        }
-        body {
-            font-family: Roboto;
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-        .container {
-            padding: 50px;
-            display: table;
-            width: 100%;
-        }
-        .split {
-            width: 50%;
-            float: left;
-            padding: 15px;
-        }
-        label {
-            display: block;
-            font-size: 0.9rem;
-        }
-        input {
-            font-size: 1rem;
-            padding: 6px 10px;
-        }
-        fieldset {
-            border: none;
-        }
-        .rjf-form-row {
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .rjf-form-row-inner {
-            padding: 5px;
-            transition: background-color 0.12s ease-in-out;
-        }
-        .rjf-form-group-wrapper {
-            position: relative;
-        }
-        .rjf-form-group-title {
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #666;
-        }
-        .rjf-form-group {
-            margin-bottom: 15px;
-            position: relative;
-            transition: background-color 0.12s ease-in-out;
-        }
-        .rjf-form-group-inner {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 3px;
-            position: relative;
-        }
-        .rjf-form-group-inner > .rjf-form-group > .rjf-form-group-inner {
-            margin-top: 15px;
-            margin-bottom: 0;
-        }
-        .rjf-form-row-controls {
-            position: absolute;
-            right: 0.3rem;
-            top: 0.3rem;
-            z-index: 2;
-            border-radius: 10rem; /* same as child button */
-        }
-        .rjf-form-row > .rjf-form-row-controls {
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .rjf-form-row-controls:hover + .rjf-form-row-inner,
-        .rjf-form-row-controls:hover + .rjf-form-group {
-            background-color: #fffedd;
-        }
-        .rjf-form-row-controls button {
-            position: relative;
-            color: #333;
-            background-color: #f3f3f3;
-            padding: 0.3rem 0.58rem;
-            margin-left: -1px;
-            text-align: center;
-            line-height: 1;
-            border: 1px solid #ccc;
-            border-radius: 10rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.12s ease-in-out,
-                        border-color 0.12s ease-in-out,
-                        color 0.12s ease-in-out;
-        }
-        .rjf-form-row-controls > button:not(:last-child) {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-        .rjf-form-row-controls > button:not(:first-child) {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-        .rjf-form-row-controls button:hover {
-            background-color: #fff;
-            border-color: #333;
-            z-index: 1;
-        }
-        .rjf-form-row-controls .rjf-remove-button {
-            color: #ff4444;
-            background-color: #ffeeee;
-            border-color: #ffcccc;
-        }
-        .rjf-form-row-controls .rjf-remove-button:hover {
-            color: #ff4444;
-            border-color: #ff4444;
-        }
-        .rjf-form-text {
-            display: block;
-            font-size: 0.88em;
-            color: #777;
-            margin-top: 8px;
-        }
-        .rjf-current-file-name {
-            font-size: 0.9em;
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-        .rjf-current-file-name span {
-            display: inline-block;
-            vertical-align: bottom;
-            background-color: #eee;
-            padding: 0 4px;
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .rjf-loader {
-            width: 32px;
-            height: 32px;
-            clear: both;
-            margin: 20px auto;
-            display: inline-block;
-            margin: 0;
-            margin-right: 0.25em;
-            height: 1em;
-            width: 1em;
-            vertical-align: middle;;
-            border: 2px #a7e6f0 solid;
-            border-top-color: #1191a6;
-            border-radius: 50%;
-            -webkit-animation: loaderRotate .4s infinite linear;
-            animation: loaderRotate .4s infinite linear;
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css" />   
 
-        @-webkit-keyframes loaderRotate {
-            from {
-                -webkit-transform: rotate(0deg);
-            }
-            to {
-                -webkit-transform: rotate(359deg);
-            }
-        }
-        @keyframes loaderRotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(359deg);
-            }
-        }
+
+    <style>
+
+        .group-add {height: 30px;}
+
     </style>
+
 </head>
 <body>
 
-<h1>JSON Editor</h1>
+
 <div class="container">
-    <div class="split">
+<h1 style="margin-top:100px;">JSON Editor</h1>
+<div class="row">
+
+    <div class="col">
         <div id="editor_container"></div>
     </div>
-    <div class="split">
+
+
+    <div class="col-auto">
         <textarea id="id_editor_data" cols="40" rows="10"></textarea>
     </div>
-</div>
 
-<div class="container">
-    <div class="split">
+</div>
+<div class="row">
+
+    <div class="col">
         <div id="editor_container_2"></div>
     </div>
-    <div class="split">
+
+
+    <div class="col-auto">
         <textarea id="id_editor_data_2" cols="40" rows="10"></textarea>
     </div>
-</div>
 
-<div class="container">
-    <div class="split">
+</div>
+<div class="row">
+
+    <div class="col">
         <div id="editor_container_3"></div>
     </div>
-    <div class="split">
+
+
+    <div class="col-auto">
         <textarea id="id_editor_data_3" cols="40" rows="10"></textarea>
     </div>
-</div>
 
-<div class="container">
-    <div class="split">
+</div>
+<div class="row">
+
+    <div class="col">
         <div id="editor_container_4"></div>
     </div>
-    <div class="split">
+
+
+    <div class="col-auto">
         <textarea id="id_editor_data_4" cols="40" rows="10"></textarea>
     </div>
+
 </div>
+</div>
+
+
 
 <script type="text/javascript" src="vendor/react.development-17.0.2.js"></script>
 <script type="text/javascript" src="vendor/react-dom.development-17.0.2.js"></script>
@@ -308,17 +160,20 @@
             twitter: '@twetsf',
         },
         schema: {
-            type: 'object',
-            title: 'Settings',
+            type: 'list',
+            title: 'Probes',
             order: ['site_name', 'site_title', 'logo', 'twitter'],
             additionalProperties: true,
-            keys: {
-                name: {
-                    type: 'string'
-                },
-                age: {
-                    type: 'string'
+            items: {
+                type: 'dict',
+                keys : {
+
+                    tag: {type: 'string'},
+                    probe: {type: 'string'},
+                    label: {type: 'string'}
+
                 }
+                
             }
         },
     });

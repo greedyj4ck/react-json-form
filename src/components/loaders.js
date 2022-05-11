@@ -1,3 +1,5 @@
+import { Spinner } from 'reactstrap';
+
 export default function Loader (props) {
-    return <div className="rjf-loader"></div>;
+    return <Spinner color="primary" size="">Loading...</Spinner>
 }

@@ -239,7 +239,7 @@ export function getArrayFormRow(args) {
             <div key={'group_' + name}>
                 {groupTitle}
                 {groups.map((i, index) => (
-                    <div className="rjf-form-group-wrapper" key={'group_wrapper_' + name + '_' + index}>
+                    <div className="rjf-form-group-wrapper row align-items-center" key={'group_wrapper_' + name + '_' + index}>
                         <FormRowControls
                             onRemove={removable ? (e) => onRemove(name + '-' + index) : null}
                             onMoveUp={index > 0 ? (e) => onMove(name + '-' + index, name + '-' + (index - 1)) : null}

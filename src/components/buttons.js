@@ -11,7 +11,7 @@ export default function Button({className, ...props}) {
 
     return (
         <button 
-            className={className.trim()}
+            className={className.trim() + " btn btn-light btn-sm"}
             type="button"
             {...props}
         >

@@ -159,8 +159,8 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <div className="rjf-form-wrapper">
-                <fieldset className="module aligned">
+            <div className="rjf-form-wrapper container">
+                <fieldset>
                     <EditorContext.Provider 
                         value={{
                             fileUploadEndpoint: this.props.fileUploadEndpoint,
