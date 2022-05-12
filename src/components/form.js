@@ -102,8 +102,8 @@ export function FormSelectInput({label, help_text, error, value, options, ...pro
     return (
         <div>
             
-            <div class={classFloating}>
-                <select className="form-control" id={props.name} value={value || ''} placeholder={label}</> {...props}>
+            <div className={classFloating}>
+                <select className="form-control" id={props.name} value={value || ''} placeholder={label} {...props}>
                     <option disabled value="" key={'__placehlder'}>Select {label}</option>
                     {options.map((option, i) => {
                         let label, inputValue;
