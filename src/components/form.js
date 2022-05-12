@@ -17,11 +17,17 @@ export function FormInput({label, help_text, error, inputRef, ...props}) {
 
     props.className = 'form-control';
 
+    let classFloating; 
+
+    if(label){classFloating="rjf-input-group form-floating"}else{classFloating="rjf-input-group"}
+    
+
     return (
-        <div className="d-inline-flex align-items-center">
-            {label && <label className="form-label">{label}</label>}
-            <div className="rjf-input-group">
-                <input {...props} />
+        <div>
+            <div className={classFloating}>
+                  
+                <input {...props} id={props.name} placeholder={label}/>
+                {label && <label htmlFor={props.name} className="form-label">{label}</label>} 
                 {help_text && <span class="rjf-help-text">{help_text}</span>}
             </div>
         </div>
@@ -48,7 +54,7 @@ export function FormCheckInput({label, help_text, error, value, ...props}) {
 
     return (
         <div className="rjf-check-input">
-            <label><input {...props} /> {label}</label>
+            <label className="form-label pe-2"><input {...props} /> {label}</label>
             {help_text && <span class="rjf-help-text">{help_text}</span>}
         </div>
     );
@@ -61,7 +67,7 @@ export function FormRadioInput({label, help_text, error, value, options, ...prop
 
     return (
         <div className="rjf-check-input">
-            <label>{label}</label>
+            <label className="form-label pe-2">{label}</label>
             {options.map((option, i) => {
                 let label, inputValue;
                 if (typeof option === 'object') {
@@ -75,7 +81,7 @@ export function FormRadioInput({label, help_text, error, value, options, ...prop
                 }
 
                 return (
-                    <label key={label + '_' + inputValue + '_' + i}>
+                    <label key={label + '_' + inputValue + '_' + i} className="form-label pe-2">
                         <input {...props} value={inputValue} checked={inputValue === value} /> {label}
                     </label>
                 );
@@ -90,12 +96,15 @@ export function FormSelectInput({label, help_text, error, value, options, ...pro
     if (props.readOnly)
         props.disabled = true;
 
+    
+    if(label){classFloating="rjf-input-group form-floating"}else{classFloating="rjf-input-group"}
+
     return (
         <div>
-            {label && <label>{label}</label>}
-            <div class="rjf-input-group">
-                <select value={value || ''} {...props}>
-                    <option disabled value="" key={'__placehlder'}>Select...</option>
+            
+            <div class={classFloating}>
+                <select className="form-control" id={props.name} value={value || ''} placeholder={label}</> {...props}>
+                    <option disabled value="" key={'__placehlder'}>Select {label}</option>
                     {options.map((option, i) => {
                         let label, inputValue;
                         if (typeof option === 'object') {
@@ -115,6 +124,7 @@ export function FormSelectInput({label, help_text, error, value, options, ...pro
                         );
                     })}
                 </select>
+                {label && <label className="form-label" htmlFor={props.name}>{label}</label>}
                 {help_text && <span class="rjf-help-text">{help_text}</span>}
             </div>
         </div>
@@ -243,7 +253,7 @@ class FormMultiSelectInputOptions extends React.Component {
 
                         return (
                             <div key={label + '_' + inputValue + '_' + i} className={optionClassName}>
-                                <label>
+                                <label className="form-label pe-2">
                                     <input
                                         type="checkbox"
                                         onChange={this.props.onChange}
@@ -513,7 +523,7 @@ export class FormTextareaInput extends React.Component {
 
         return (
             <div>
-                {label && <label class="form-label">{label}</label>}
+                {label && <label class="form-label pe-2">{label}</label>}
                 <div className="rjf-input-group">
                     <textarea {...props} />
                     {help_text && <span class="rjf-help-text">{help_text}</span>}
@@ -675,7 +685,7 @@ export class FormDateTimeInput extends React.Component {
     render() {
         return (
             <div className="rjf-datetime-field">
-                {this.props.label && <label class="form-label">{this.props.label}</label>}
+                {this.props.label && <label class="form-label pe-2">{this.props.label}</label>}
                 <div className="rjf-datetime-field-inner">
                     <div className="rjf-datetime-field-inputs">
                         <div className="rjf-datetime-field-date">

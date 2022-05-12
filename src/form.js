@@ -159,7 +159,7 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <div className="rjf-form-wrapper container">
+            <div className="rjf-form-wrapper py-2 container">
                 <fieldset>
                     <EditorContext.Provider 
                         value={{

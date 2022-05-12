@@ -118,9 +118,9 @@ export function FormRowControls(props) {
 
 export function FormRow(props) {
 
-    let rowClass = props.children.props.level % 2 == 0 ? "rjf-form-row col align-items-center my-2" : "rjf-form-row row align-items-center my-2"
+    let rowClass = props.children.props.level % 2 == 0 ? "rjf-form-row col-sm align-items-center py-1" : "rjf-form-row row align-items-center py-1"
 
-    if(props.children.props.level % 2 == 0 && props.children.props.parentType === "array"){rowClass='rjf-form-row row align-items-center my-2'}
+    if(props.children.props.level % 2 == 0 && props.children.props.parentType === "array"){rowClass='rjf-form-row row align-items-center py-1'}
 
 
     return (
