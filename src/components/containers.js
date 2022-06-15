@@ -6,16 +6,24 @@ export function GroupTitle(props) {
         return null;
 
     return (
-        <div className="rjf-form-group-title row"><div className="col">{props.children}</div></div>
+        <div className="rjf-form-group-title row">
+            <div class="col">
+                {props.editable ?
+                    <span>{props.children} <Button className="edit" onClick={props.onEdit} title="Edit">Edit</Button></span>
+                    :
+                    props.children
+                }
+            </div>
+        </div>
     );
-}
+};
 
 
 function animate(e, animation, callback) {
 
     let el;
 
-    if (e.target.tagName.toLowerCase() === 'button'){el = e.target.parentElement.parentElement } else {el = e.target.parentElement.parentElement.parentElement };
+    if (e.target.tagName.toLowerCase() === 'button') { el = e.target.parentElement.parentElement } else { el = e.target.parentElement.parentElement.parentElement };
 
     // let el = e.target.parentElement.parentElement.parentElement;
     let prevEl = el.previousElementSibling;
@@ -72,55 +80,51 @@ function animate(e, animation, callback) {
 }
 
 
-
-
 export function FormRowControls(props) {
 
-    if(props.onMoveDown == null && props.onMoveUp == null && props.onRemove == null){return null;}else {return (
-        <div className="rjf-form-row-controls col-sm-12 col-md-2">
-            {props.onMoveUp &&
-                <Button
-                    className="move-up"
-                    onClick={(e) => animate(e, 'move-up', props.onMoveUp)}
-                    title="Move up"
-                >
-                    <span>&uarr;</span>
-                </Button>
-            }
-            {props.onMoveDown &&
-                <Button
-                    className="move-down"
-                    onClick={(e) => animate(e, 'move-down', props.onMoveDown)}
-                    title="Move down"
-                >
-                    <span>&darr;</span>
-                </Button>
-            }
-            {props.onRemove &&
-                <Button
-                    className="remove"
-                    onClick={(e) => animate(e, 'remove', props.onRemove)}
-                    title="Remove"
-                >
-                    <span>&times;</span>
-                </Button>
-            }
-        </div>
-    );}
+    if (props.onMoveDown == null && props.onMoveUp == null && props.onRemove == null) { return null; } else {
+        return (
+            <div className="rjf-form-row-controls col-sm-12 col-md-2">
+                {props.onMoveUp &&
+                    <Button
+                        className="move-up"
+                        onClick={(e) => animate(e, 'move-up', props.onMoveUp)}
+                        title="Move up"
+                    >
+                        <span>&uarr;</span>
+                    </Button>
+                }
+                {props.onMoveDown &&
+                    <Button
+                        className="move-down"
+                        onClick={(e) => animate(e, 'move-down', props.onMoveDown)}
+                        title="Move down"
+                    >
+                        <span>&darr;</span>
+                    </Button>
+                }
+                {props.onRemove &&
+                    <Button
+                        className="remove"
+                        onClick={(e) => animate(e, 'remove', props.onRemove)}
+                        title="Remove"
+                    >
+                        <span>&times;</span>
+                    </Button>
+                }
+            </div>
+        );
+    }
 
 
-    
+
 }
-
-
-
-
 
 export function FormRow(props) {
 
     let rowClass = props.children.props.level % 2 == 0 ? "rjf-form-row col-sm align-items-center py-1" : "rjf-form-row row align-items-center py-1"
 
-    if(props.children.props.level % 2 == 0 && props.children.props.parentType === "array"){rowClass='rjf-form-row row align-items-center py-1'}
+    if (props.children.props.level % 2 == 0 && props.children.props.parentType === "array") { rowClass = 'rjf-form-row row align-items-center py-1' }
 
 
     return (
@@ -133,13 +137,9 @@ export function FormRow(props) {
     );
 }
 
-
 export function FormGroup(props) {
-    
-      
-    
-    let hasChildren = React.Children.count(props.children);
 
+    let hasChildren = React.Children.count(props.children);
     let innerClassName = props.level === 0 && !hasChildren
         ? ""
         : "rjf-form-group-inner row  align-items-center";
@@ -148,28 +148,31 @@ export function FormGroup(props) {
     let rowClass = props.level == 0 ? "rjf-form-group row m-1 py-2" : "rjf-form-group col m-1 py-2"
 
 
-    if (props.schema.type === 'object' && props.level == 1){rowClass = 'rjf-form-group row m-1 py-2'}
+    if (props.schema.type === 'object' && props.level == 1) { rowClass = 'rjf-form-group row m-1 py-2' }
 
 
 
     return (
-        <div className={rowClass}>
-            {props.level === 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
-            <div className={innerClassName}>
-                {props.level > 0 && <GroupTitle>{props.schema.title}</GroupTitle>}
-                {props.children}
-                {props.addable && 
+      
+        <div className="rjf-form-group">
+                {props.level === 0 && <GroupTitle editable={props.editable} onEdit={props.onEdit}>{props.schema.title}</GroupTitle>}
+                <div className={innerClassName}>
+                    {props.level > 0 && <GroupTitle editable={props.editable} onEdit={props.onEdit}>{props.schema.title}</GroupTitle>}
+                    {props.children}
+                    {props.addable &&
 
-                <div className='btn-group group-add col m-1 text-center'>
-                    <Button
-                        className="add"
-                        onClick={(e) => props.onAdd()}
-                        title="Add new"
-                    >
-                        {hasChildren ? 'Add more' : 'Add'}
-                    </Button>
-                </div> }
+                        <div className='btn-group group-add col m-1 text-center'>
+                            <Button
+                                className="add"
+                                onClick={(e) => props.onAdd()}
+                                title={props.schema.type === 'object' ? 'Add new key' : 'Add new item'}>
+
+                                {props.schema.type === 'object' ? 'Add key' : 'Add item'}
+                            </Button>
+                        </div>}
+            
+                </div>
             </div>
-        </div>
-    );
+            
+            );
 }
