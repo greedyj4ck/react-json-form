@@ -29,6 +29,9 @@ export function FormInput({label, help_text, error, inputRef, ...props}) {
                 <input {...props} id={props.name} placeholder={label}/>
                 {label && <label htmlFor={props.name} className="form-label">{label}</label>} 
                 {help_text && <span class="rjf-help-text">{help_text}</span>}
+            {label && <label>{label}</label>}
+            
+           
             </div>
         </div>
     );
@@ -53,9 +56,9 @@ export function FormCheckInput({label, help_text, error, value, ...props}) {
         props.disabled = true;
 
     return (
-        <div className="rjf-check-input">
+        <div className="rjf-check-input">            
             <label className="form-label pe-2"><input {...props} /> {label}</label>
-            {help_text && <span class="rjf-help-text">{help_text}</span>}
+            {help_text && <span className="rjf-help-text">{help_text}</span>}
         </div>
     );
 }
@@ -86,7 +89,7 @@ export function FormRadioInput({label, help_text, error, value, options, ...prop
                     </label>
                 );
             })}
-            {help_text && <span class="rjf-help-text">{help_text}</span>}
+            {help_text && <span className="rjf-help-text">{help_text}</span>}
         </div>
     );
 }
@@ -100,11 +103,10 @@ export function FormSelectInput({label, help_text, error, value, options, ...pro
     if(label){classFloating="rjf-input-group form-floating"}else{classFloating="rjf-input-group"}
 
     return (
-        <div>
-            
+        <div>          
             <div className={classFloating}>
-                <select className="form-control" id={props.name} value={value || ''} placeholder={label} {...props}>
-                    <option disabled value="" key={'__placehlder'}>Select {label}</option>
+                <select className="form-control" value={value || ''} {...props}>
+                    <option disabled value="" key={'__placehlder'}>Select...</option>
                     {options.map((option, i) => {
                         let label, inputValue;
                         if (typeof option === 'object') {
@@ -125,7 +127,7 @@ export function FormSelectInput({label, help_text, error, value, options, ...pro
                     })}
                 </select>
                 {label && <label className="form-label" htmlFor={props.name}>{label}</label>}
-                {help_text && <span class="rjf-help-text">{help_text}</span>}
+                {help_text && <span className="rjf-help-text">{help_text}</span>}
             </div>
         </div>
     );
@@ -462,6 +464,7 @@ export class FormFileInput extends React.Component {
         return (
             <div> 
                 {label && <label className="form-label my-2">{label}</label>}
+
                 <div className="rjf-file-field form-group">
                     {this.state.value && 
                         <div className="rjf-current-file-name">
@@ -469,21 +472,22 @@ export class FormFileInput extends React.Component {
                             <Button className="remove-file" onClick={this.clearFile}>Clear</Button>
                         </div>
                     }
+
                     <div className="align-items-center">
-                    {this.state.value && !this.state.loading && 'Change:'}
-                    {this.state.loading ?
-                        <div className="rjf-file-field-loading"><Loader/> Uploading...</div>
-                    : 
-                    <div className="rjf-file-field-input">
-                        <FormInput {...props} inputRef={this.inputRef} />
-                    </div>
-                    }</div>
-                    </div>
+                        {this.state.value && !this.state.loading && 'Change:'}
+                        {this.state.loading ?
+                            <div className="rjf-file-field-loading"><Loader/> Uploading...</div>
+                                : 
+                            <div className="rjf-file-field-input">
+                            <FormInput {...props} inputRef={this.inputRef} />
+                            </div>
+                        }</div>
+                </div>
+                   
             </div>
         );
     }
 }
-
 
 export class FormTextareaInput extends React.Component {
     constructor(props) {
@@ -526,7 +530,7 @@ export class FormTextareaInput extends React.Component {
                 {label && <label class="form-label pe-2">{label}</label>}
                 <div className="rjf-input-group">
                     <textarea {...props} />
-                    {help_text && <span class="rjf-help-text">{help_text}</span>}
+                    {help_text && <span className="rjf-help-text">{help_text}</span>}
                 </div>
             </div>
         );
@@ -718,7 +722,7 @@ export class FormDateTimeInput extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {this.props.help_text && <span class="rjf-help-text">{this.props.help_text}</span>}
+                    {this.props.help_text && <span className="rjf-help-text">{this.props.help_text}</span>}
                 </div>
             </div>
         );
